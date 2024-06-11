@@ -1,0 +1,6 @@
+** Sollywood Frontend:-
+
+1) If project run get error then run code :- ( npm i --legacy-peer-deps )
+2) Then npm start
+
+--> run project: http://localhost:3000
