@@ -1,12 +1,10 @@
 import request from './request';
 
 const eventService = {
-  getAll: (params) =>
-    request.get('dashboard/admin/event', { params }),
-//   getById: (params) =>
-//     request.get(`dashboard/admin/birthday/1`, { params }),
-//   update: (id, params) =>
-//     request.put(`dashboard/admin/birthday/${id}`, {}, { params }),
+  getAll: () => request.get('dashboard/admin/event', {}),
+  create: (data) => request.post('dashboard/admin/event', data),
+  update: (id, params) => request.put(`dashboard/admin/event/${id}`, {}, { params }),
+  delete: (id) => request.delete(`dashboard/admin/event/${id}`),
 };
 
 export default eventService;

@@ -330,6 +330,10 @@ export const AdminRoutes = [
     component: lazy(() => import('views/event/index')),
   },
   {
+    path: 'event/:id',
+    component: lazy(() => import('views/event/index')),
+  },
+  {
     path: 'payment-payloads/edit/:id',
     component: lazy(() => import('views/payment-payloads/payload-edit')),
   },

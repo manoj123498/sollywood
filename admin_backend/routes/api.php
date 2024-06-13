@@ -637,9 +637,15 @@ Route::group(['prefix' => 'v1', 'middleware' => ['localization']], function () {
                 Route::delete('units', [Admin\UnitController::class, 'destroy']);
                 Route::apiResource('units', Admin\UnitController::class);
 
-                /* Birthday */
+                /* Gift Settings */
                 Route::get('birthday/{id}', [Admin\BirthdayController::class, 'show']);
                 Route::put('birthday/{id}', [Admin\BirthdayController::class, 'update']);
+
+                /* Event Settings */
+                Route::get('event', [Admin\EventController::class, 'show']);
+                Route::post('event', [Admin\EventController::class, 'store']);
+                Route::put('event/{id}', [Admin\EventController::class, 'update']);
+                Route::delete('event', [Admin\EventController::class, 'destroy']);
 
                 /* Shops */
                 Route::get('shops/search', [Admin\ShopController::class, 'shopsSearch']);
@@ -682,8 +688,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['localization']], function () {
                 Route::post('/users/{uuid}/addresses', [Admin\UserAddressController::class, 'store']);
 
                 /* Users */
-                
-      
                 Route::post('users/delete/all', [Admin\UserController::class, 'deleteAll']);
                 Route::get('users/search', [Admin\UserController::class, 'usersSearch']);
                 Route::get('users/paginate', [Admin\UserController::class, 'paginate']);
