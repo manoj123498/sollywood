@@ -17,23 +17,24 @@ export default function Index() {
     const [showModal, setShowModal] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [eventTitle, setEventTitle] = useState('');
+    const [eventId, setEventId] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventCashbackAmount, setEventCashbackAmount] = useState('');
     const [selectEvent, setSelectEvent] = useState(null);
 
     useEffect(() => {
+        /* Display Event Settings */
         eventService
             .getAll()
             .then(({ data }) => {
                 const dispEvents = data.map(event => ({
-                    //id: event.id,
+                    id: event.id,
                     title: event.title,
                     description: event.description,
                     cashback_amount: event.cashback_amount,
                     start: event.event_start_date,
                     end: event.event_end_date,
                 }));
-                //console.log(dispEvents);
                 setEvents(dispEvents);
                 setSelectEvent(dispEvents);
             }).catch(error => {
@@ -46,14 +47,13 @@ export default function Index() {
             .getAll()
             .then(({ data }) => {
                 const dispEvents = data.map(event => ({
-                    //id: event.id,
+                    id: event.id,
                     title: event.title,
                     description: event.description,
                     cashback_amount: event.cashback_amount,
                     start: event.event_start_date,
                     end: event.event_end_date,
                 }));
-                //console.log(dispEvents);
                 setEvents(dispEvents);
                 setSelectEvent(dispEvents);
             }).catch(error => {
@@ -70,6 +70,7 @@ export default function Index() {
     const handleSelectEvent = (event) => {
         setShowModal(true);
         setSelectEvent(event);
+        setEventId(event.id);
         setEventTitle(event.title);
         setEventDescription(event.description);
         setEventCashbackAmount(event.cashback_amount);
@@ -86,11 +87,11 @@ export default function Index() {
     const saveEvent = () => {
         if (eventTitle || selectedDate) {
             if (selectEvent) {
+                /* Update Event Settings */
                 const updateEvent = { ...selectEvent, title: eventTitle, description: eventDescription, cashback_amount: eventCashbackAmount };
                 const updateEvents = events.map((event) => 
                     event === selectEvent ? updateEvent : event
                 );
-                console.log("select id: ",selectEvent);
                 eventService
                     .update(selectEvent.id, updateEvent)
                     .then(() => {
@@ -103,6 +104,7 @@ export default function Index() {
                         resetForm();
                     });
             } else {
+                /* Insert Event Settings */
                 const newEvent = {
                     title: eventTitle,
                     description: eventDescription,
@@ -123,6 +125,7 @@ export default function Index() {
     };
 
     const deleteEvents = () => {
+        /* Delete Event Settings */
         if (selectEvent) {
             const updateEvents = events.filter((event) => event !== selectEvent);
             eventService
@@ -165,6 +168,13 @@ export default function Index() {
                                     ></button>
                                 </div>
                                 <div className="modal-body">
+                                        <input
+                                            type='hidden'
+                                            className='form-control'
+                                            id='eventId'
+                                            value={eventId}
+                                            onChange={(e) => setEventId(e.target.value)}
+                                        />
                                     <div>
                                         <label>Event Title: </label>
                                         <input

@@ -645,7 +645,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['localization']], function () {
                 Route::get('event', [Admin\EventController::class, 'show']);
                 Route::post('event', [Admin\EventController::class, 'store']);
                 Route::put('event/{id}', [Admin\EventController::class, 'update']);
-                Route::delete('event', [Admin\EventController::class, 'destroy']);
+                Route::delete('event/{id}', [Admin\EventController::class, 'destroy']);
 
                 /* Shops */
                 Route::get('shops/search', [Admin\ShopController::class, 'shopsSearch']);

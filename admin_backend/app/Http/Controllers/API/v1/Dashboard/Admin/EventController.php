@@ -76,11 +76,11 @@ class EventController extends AdminBaseController
 
     public function destroy(string $id)
     {
-        $event = $this->model->firstWhere('id', $id);
+        $event = Event::where('id',$id)->first();
         if ($event) {
             try {
                 $event->delete();
-                return $this->successResponse(trans('web.record_successfully_deleted', []), []);
+                return $this->successResponse(trans('web.record_successfully_deleted'));
             } catch (Exception $exception) {
                 return $this->errorResponse(ResponseError::ERROR_400,
                     $exception->getMessage(),
